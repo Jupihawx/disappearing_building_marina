@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Parametric Marina</title>
+    <link rel="stylesheet" href="styles.css">
+	<style>
+		.video-container {
+			display: none;
+		}
+		.video-container.active {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+    <div class="video-wrapper">
+        <div>
+
+            <video id="0to1" class="video-container active" width="640" height="360" autoplay  >
+                <source src="00.mp4" type="video/mp4">
+            </video>
+            <video id="0to2" class="video-container" width="640" height="360" autoplay  >
+                <source src="01.mp4" type="video/mp4">
+            </video>
+            <video id="0to3" class="video-container" width="640" height="360" autoplay  >
+                <source src="10.mp4" type="video/mp4">
+            </video>
+            <video id="0to4" class="video-container" width="640" height="360" autoplay  >
+                <source src="11.mp4" type="video/mp4">
+            </video>
+            <video id="1to1" class="video-container" width="640" height="360" autoplay  >
+                <source src="00.mp4" type="video/mp4">
+            </video>
+            <video id="2to2" class="video-container" width="640" height="360" autoplay  >
+                <source src="01.mp4" type="video/mp4">
+            </video>
+            <video id="3to3" class="video-container" width="640" height="360" autoplay  >
+                <source src="10.mp4" type="video/mp4">
+            </video>
+            <video id="4to4" class="video-container" width="640" height="360" autoplay  >
+                <source src="11.mp4" type="video/mp4">
+            </video>
+
+
+
+
+            
+            <video id="1to2" class="video-container" width="640" height="360" autoplay  >
+                <source src="00to01.mp4" type="video/mp4">
+            </video>
+            <video id="2to1" class="video-container" width="640" height="360" autoplay  >
+                <source src="01to00.mp4" type="video/mp4">
+            </video>
+            <video id="3to4" class="video-container" width="640" height="360" autoplay  >
+                <source src="10to11.mp4" type="video/mp4">
+            </video>
+            <video id="4to3" class="video-container" width="640" height="360" autoplay  >
+                <source src="11to10.mp4" type="video/mp4">
+            </video>
+            <video id="2to3" class="video-container" width="640" height="360" autoplay  >
+                <source src="01to10.mp4" type="video/mp4">
+            </video>
+            <video id="3to2" class="video-container" width="640" height="360" autoplay  >
+                <source src="10to01.mp4" type="video/mp4">
+            </video>
+            <video id="4to1" class="video-container" width="640" height="360" autoplay  >
+                <source src="11to00.mp4" type="video/mp4">
+            </video>
+            <video id="1to4" class="video-container" width="640" height="360" autoplay  >
+                <source src="00to11.mp4" type="video/mp4">
+            </video>
+            <video id="4to2" class="video-container" width="640" height="360" autoplay  >
+                <source src="11to01.mp4" type="video/mp4">
+            </video>
+            <video id="2to4" class="video-container" width="640" height="360" autoplay  >
+                <source src="01to11.mp4" type="video/mp4">
+            </video>
+            <video id="1to3" class="video-container" width="640" height="360" autoplay  >
+                <source src="00to10.mp4" type="video/mp4">
+            </video>
+            <video id="3to1" class="video-container" width="640" height="360" autoplay  >
+                <source src="10to00.mp4" type="video/mp4">
+            </video>
+
+        </div>
+    </div>
+    <div class="checkbox-container">
+        <div>
+            <input type="radio" id="radio1" name="video" value="video1" checked>
+            <label for="radio1">_ _</label>
+            <input type="radio" id="radio2" name="video" value="video2">
+            <label for="radio2">_ I</label>
+            <input type="radio" id="radio3" name="video" value="video3">
+            <label for="radio3">I _</label>
+            <input type="radio" id="radio4" name="video" value="video4">
+            <label for="radio4">I I</label>
+
+            <br>
+            <br> 
+            
+            Press a tickbox to switch between cases (<b>_ == no tower, I == tower present </b> ).
+            <br>
+            Double click on the same tickbox to simulate from the beginning 
+        </div>
+    </div>
+	<script>
+		// Get references to videos and radio buttons
+		const videos = document.querySelectorAll('.video-container');
+		const radioButtons = document.querySelectorAll('input[type=radio][name=video]');
+        var current_case = "1";
+        var selected_case = "";
+        var name_video_to_play = "";
+		// Add event listeners to radio buttons
+		radioButtons.forEach(radioButton => {
+			radioButton.addEventListener('click', () => {
+                selected_case= radioButton.value.substring(5); // Get the case; 0 is 00, 1 is 01, 2 is 10, 3 is 11
+
+                name_video_to_play=current_case+"to"+selected_case
+                console.log(name_video_to_play);
+
+                
+				// Hide all videos and show selected video
+				videos.forEach(video => {
+//					if (video.id === radioButton.value) {
+                    if (video.id === name_video_to_play) {
+
+						video.classList.add('active');
+                        video.currentTime = 0;
+                        video.play();
+					} else {
+						video.classList.remove('active');
+					}
+				});
+                current_case = selected_case;
+			});
+		});
+	</script>
+</body>
+</html>
